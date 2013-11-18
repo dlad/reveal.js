@@ -12,7 +12,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/theme/bskyb.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -33,8 +33,14 @@
 
 			<div class="slides">
 				<section>
-					<h1>Service Platform</h1>
-					<h4>November 2013</h4>
+					<h1><img src="assets/sky-logo.png"/></h1>
+					<h2>Service Platform</h2>
+					<p>The Cloud &middot; November 2013</p>
+
+					<aside class="notes">
+						<p>My first presentation; go easy on me</p>
+						<p>Feel free to interupt to ask me questions. This is a two way discussion.</p>
+					</aside>
 				</section>
 
 				<section>
@@ -46,12 +52,25 @@
 						<li>Application Server</li>
 					</ul>
 
-					<aside class="notes">It means different things to different people: end users (web site), developers (java application). This presentation is about the application called the service-platform</aside>
+					<aside class="notes">
+						<p>It means different things to different people: end users (web site), developers (java application).</p>
+						<p>This presentation is about the application called the service-platform which encompassed all of these.</p>
+					</aside>
 				</section>
 
 				<section>
 					<h2>How is it built?</h2>
-					<aside class="notes">Java, Jetty, Maven, Chef</aside>
+					<aside class="notes">
+						<p>Background infomation, useful to know: Java, Jetty, Maven, Jenkins, Chef</p>
+					</aside>
+				</section>
+
+				<section>
+					<h2>How does it run?</h2>
+					<aside class="notes">
+						<p>Standard service with init script</p>
+						<p>Standard java app, embedded jetty</p>
+					</aside>
 				</section>
 
 				<section>
@@ -72,7 +91,9 @@
 						<li>Apache</li>
 						<li>Monitoring</li>
 					</ul>
-					<aside class="notes">High level &ndash; end user devices, but actually very few things talk directly to it on a low level...</aside>
+					<aside class="notes">
+						<p>High level &ndash; end user devices, but actually very few things talk directly to it on a low level...</p>
+					</aside>
 				</section>
 
 				<section>
@@ -81,30 +102,45 @@
 				</section>
 
 				<section>
-					<h2>Performance</h2>
-					<p>[Insert stats here, reveal slowly]</p>
-					<aside class="notes">How well does it perform today? What are the minimum number of servers we can survive with at peak?</aside>
-				</section>
-
-				<section>
-					<h2>Monitoring &amp; Logging</h2>
-					<p>[Insert infrastructure diagram here]</p>
-					<aside class="notes">Nagios, JMX, Logback, Metrics, JVisualVM</aside>
-			      	</section>
-
-				<section>
-					<h2>Troubleshooting</h2>
-					<p>[Insert stats here, reveal slowly]</p>
-					<aside class="notes">Lost in the clouds... Stacktraces... Healthchecks... Metrics...</aside>
-				</section>
-
-				<section>
 					<h2>Configuration</h2>
 					<ul>
 						<li>Application Configuration</li>
 						<li>Platform Configuration</li>
 					</ul>
-					<aside class="notes">Application config is read locally: appplication.properties, jetty.xml, logback.xml &ndash; unique to instance. Platform configuration is read from the database and is localized to the end user</aside>
+					<aside class="notes">
+						<p>Application config is read locally: appplication.properties, jetty.xml, logback.xml &ndash; unique to instance.</p>
+						<p>Platform configuration is read from the database and is localized to the end user &ndash; two parts: defining a configuration; and assigning it to a location</p>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Performance</h2>
+					<p>Per server...</p>
+					<ul>
+						<li class="fragment">Max theoretical &ndash; 2400 requests per second</li>
+						<li class="fragment">Web pages &ndash; 750 requests per second</li>
+						<li class="fragment">Redirects &ndash; 500 requests per second</li>
+						<li class="fragment">Registrations &ndash; 50 registrations per second</li>
+					</ul>
+					<aside class="notes">
+						<p>How well does it perform today? What are the minimum number of servers we can survive with at peak?</p>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Monitoring &amp; Logging</h2>
+					<aside class="notes">
+						<p>Nagios, JMX, Logback, Metrics, JVisualVM, Splunk</p>
+					</aside>
+			      	</section>
+
+				<section>
+					<h2>Troubleshooting</h2>
+					<blockquote>&ldquo;Oops! That one appears to have been lost in the Clouds.&rdquo;</blockquote>
+					<aside class="notes">
+						<p>We've all seen this message before</p>
+						<p>First check the logs! Stacktraces... Healthchecks... Metrics...</p>
+					</aside>
 				</section>
 
 				<!--
@@ -122,7 +158,11 @@
 
 				<section>
 					<h2>Homework</h2>
-					<aside class="notes">Take some time, look through the metrics, decide as a group what is important and create a dashboard in cacti</aside>
+					<p class="fragment">Create a dashboard on Cacti for the service platform</p>
+
+					<aside class="notes">
+						<p>Take some time, look through the metrics, decide as a group what is important and create a dashboard in cacti</p>
+					</aside>
 				</section>
 			</div>
 
@@ -141,7 +181,7 @@
 				history: true,
 				center: true,
 
-				theme: 'sky',
+				theme: 'bskyb',
 				transition: 'linear',
 				transitionSpeed: 'default',
 				backgroundTransition: 'linear',

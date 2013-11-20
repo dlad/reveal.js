@@ -40,6 +40,16 @@
 					<aside class="notes">
 						<p>My first presentation; go easy on me</p>
 						<p>Feel free to interupt to ask me questions. This is a two way discussion.</p>
+						<p>If an hour is not enough don't worry, we can schedule more time</p>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Aim</h2>
+					<p>My objective is for you leave this room with enough knowledge about the service platform, so that you can apply logical reasoning to determine if there might be a fault with it and what that fault might be</p>
+
+					<aside class="notes">
+						<p>If theres is anything you want me to cover in extra detail, let me know</p>
 					</aside>
 				</section>
 
@@ -59,14 +69,67 @@
 				</section>
 
 				<section>
+				<section>
 					<h2>How is it built?</h2>
+
 					<aside class="notes">
-						<p>Background infomation, useful to know: Java, Jetty, Maven, Jenkins, Chef</p>
+						<p>Background infomation, useful to know: Java, Jetty, Chef</p>
 					</aside>
 				</section>
 
 				<section>
+					<h3>With Java 7</h3>
+
+					<ul>
+						<li>The Language</li>
+						<li>The Virtual Machine</li>
+						<li>Garbage Collection</li>
+					</ul>
+
+					<aside class="notes">
+						<p>Whats most important is Java the virtual machine from an operational pov. Especially good to know the gc side of things</p>
+					</aside>
+				</section>
+
+				<section>
+					<h3>With Jetty</h3>
+
+					<ul>
+						<li>Web Server</li>
+						<li>Lightweight</li>
+						<li>Embedded</li>
+						<li>Well Documented</li>
+					</ul>
+
+					<aside class="notes">
+						<p>Core components, part of many application @ The Cloud</p>
+						<p>Can serve static pages, java applications, can even serve php, ruby on rails, python apps, cgi...</p>
+					</aside>
+				</section>
+
+				<section>
+					<h3>With Chef</h3>
+
+					<ul>
+						<li>Installs application</li>
+						<li>Configures application</li>
+						<li>Runs application</li>
+					</ul>
+
+					<aside class="notes">
+						<p>The part you may be most familiar with...</p>
+					</aside>
+				</section>
+				</section>
+
+				<section>
 					<h2>How does it run?</h2>
+					<ul>
+						<li class="fragment">Chef Cookbook</li>
+						<li class="fragment">Linux Service</li>
+						<li class="fragment">Shell Script</li>
+						<li class="fragment">Java</li>
+					</ul>
 					<aside class="notes">
 						<p>Standard service with init script</p>
 						<p>Standard java app, embedded jetty</p>
@@ -74,15 +137,28 @@
 				</section>
 
 				<section>
+				<section>
 					<h2>What does it talk to?</h2>
 					<ul>
 						<li>Databases &ndash; clouddb, myclouddb hsppdb</li>
 						<li>NAC &ndash; session management</li>
-						<li>Omniture &ndash; web analytics</li>
+						<li><del>Omniture &ndash; web analytics</del></li>
 						<li>SMS Gateway</li>
 						<li>Mail Server</li>
 					</ul>
 					<aside class="notes"></aside>
+				</section>
+
+				<section>
+					<h3>Scenarios</h3>
+					<ul>
+						<li class="fragment">Landing Page</li>
+						<li class="fragment">Registration</li>
+						<li class="fragment">Getting Online</li>
+					</ul>
+					<aside class="notes"></aside>
+				</section>
+
 				</section>
 
 				<section>
@@ -97,10 +173,28 @@
 				</section>
 
 				<section>
+				<section>
 					<h2>What does it look like?</h2>
-					<p>[Insert infrastructure diagram here]</p>
+				</section>
+				<section>
+					<h3>The Website</h3>
+					<img src="assets/service-platform-infrastructure/web.png"/>
+
+					<aside class="notes">
+						<p>Stateful &ndash; maintained using sticky sessions on the apache layer using cookies</p>
+					</aside>
+				</section>
+				<section>
+					<h3>The Redirection Service</h3>
+					<img src="assets/service-platform-infrastructure/redirect.png"/>
+
+					<aside class="notes">
+						<p>Stateless</p>
+					</aside>
+				</section>
 				</section>
 
+				<section>
 				<section>
 					<h2>Configuration</h2>
 					<ul>
@@ -108,9 +202,35 @@
 						<li>Platform Configuration</li>
 					</ul>
 					<aside class="notes">
-						<p>Application config is read locally: appplication.properties, jetty.xml, logback.xml &ndash; unique to instance.</p>
+						<p>Application config is read locally; unique to instance.</p>
+						<p>Platform configuration is read from the database and is localized to the end user</p>
+					</aside>
+				</section>
+
+				<section>
+					<h3>Application Configuration</h3>
+					<ul>
+						<li>application.properties</li>
+						<li>jetty.xml</li>
+						<li>logback.xml</li>
+					</ul>
+					<aside class="notes">
+						<p>application properties and jetty xml require restart. logback xml can be changed on the fly (watch out for chef!)</p>
 						<p>Platform configuration is read from the database and is localized to the end user &ndash; two parts: defining a configuration; and assigning it to a location</p>
 					</aside>
+				</section>
+
+				<section>
+					<h3>Platform Configuration</h3>
+					<ul>
+						<li>Stored in the database</li>
+						<li>configuration.*</li>
+						<li>shared.feature_configuration</li>
+					</ul>
+					<aside class="notes">
+						<p>Cached, TTL 30 min, usually done as BAU changes, managed by product, applied by DBA</p>
+					</aside>
+				</section>
 				</section>
 
 				<section>
@@ -128,11 +248,41 @@
 				</section>
 
 				<section>
+				<section>
 					<h2>Monitoring &amp; Logging</h2>
+					<ul>
+						<li>Nagios</li>
+						<li>Splunk</li>
+						<li>Log Files</li>
+					</ul>
+
 					<aside class="notes">
-						<p>Nagios, JMX, Logback, Metrics, JVisualVM, Splunk</p>
+						<p>Nagios, Splunk, Log files, what underpins them?</p>
 					</aside>
-			      	</section>
+			    </section>
+
+			    <section>
+			    	<h3>JMX</h3>
+
+			    	<aside class="notes">
+			    		<p>Live Demo</p>
+			    	</aside>
+			    </section>
+
+			    <section>
+			    	<h3>Log Files</h3>
+
+			    	<ul>
+			    		<li>Standard Logs</li>
+			    		<li>GC Logs</li>
+			    	</ul>
+
+			    	<aside class="notes">
+			    		<p>Live Demo</p>
+			    	</aside>
+			    </section>
+
+				</section>
 
 				<section>
 					<h2>Troubleshooting</h2>
@@ -143,14 +293,6 @@
 					</aside>
 				</section>
 
-				<!--
-				<section>
-					<h2>Future Direction</h2>
-					<p>Simplification by separation of concerns</p>
-					<p>Simplification by reducing the number of moving parts</p>
-					<aside class="notes">Split the redirect functionality into a separate component that can live with the proxies (development), then remove Apache httpd.</aside>
-				</section>
-				-->
 
 				<section>
 					<h2>Questions?</h2>

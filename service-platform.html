@@ -46,9 +46,10 @@
 
 				<section>
 					<h2>Aim</h2>
-					<p>My objective is for you leave this room with enough knowledge about the service platform, so that you can apply logical reasoning to determine if there might be a fault with it and what that fault might be</p>
+					<p>Have enough knowledge to be able to troubleshoot the service platform</p>
 
 					<aside class="notes">
+						<p>My objective is for you leave this room with enough knowledge about the service platform, so that you can apply logical reasoning to determine if there might be a fault with it and what that fault might be</p>
 						<p>If theres is anything you want me to cover in extra detail, let me know</p>
 					</aside>
 				</section>
@@ -131,8 +132,10 @@
 						<li class="fragment">Java</li>
 					</ul>
 					<aside class="notes">
-						<p>Standard service with init script</p>
-						<p>Standard java app, embedded jetty</p>
+						<p>Just went through what chef does</p>
+						<p>It is a standard linux service, run in a way everyone is familiar with: start, stop, restart, status</p>
+						<p>service-platform.sh: wrapper script</p>
+						<p>java -jar ...</p>
 					</aside>
 				</section>
 
@@ -140,13 +143,18 @@
 				<section>
 					<h2>What does it talk to?</h2>
 					<ul>
-						<li>Databases &ndash; clouddb, myclouddb hsppdb</li>
+						<li>Databases &ndash; clouddb, myclouddb, hsppdb</li>
 						<li>NAC &ndash; session management</li>
 						<li><del>Omniture &ndash; web analytics</del></li>
 						<li>SMS Gateway</li>
 						<li>Mail Server</li>
 					</ul>
-					<aside class="notes"></aside>
+					<aside class="notes">
+						<p>clouddb: venue information, myclouddb: configuration, products + users, hsppdb: hspp</p>
+						<p>nac session management: everything and anything related to sessions is marshalled through the nac</p>
+						<p>SMS used by internation business when logging in</p>
+						<p>Mail sent when you register (internation only), buy products, reset password</p>
+					</aside>
 				</section>
 
 				<section>
@@ -156,7 +164,10 @@
 						<li class="fragment">Registration</li>
 						<li class="fragment">Getting Online</li>
 					</ul>
-					<aside class="notes"></aside>
+					<aside class="notes">
+						<p>Landing page, the most popular page - what happens when it loads?</p>
+						<p>All pages call the nac to check session status, look up configuration (brands, media window, content portal)</p>
+					</aside>
 				</section>
 
 				</section>
@@ -169,6 +180,7 @@
 					</ul>
 					<aside class="notes">
 						<p>High level &ndash; end user devices, but actually very few things talk directly to it on a low level...</p>
+						<p>Ports: 8080, 12345 (more on monitoring later)</p>
 					</aside>
 				</section>
 
@@ -181,7 +193,8 @@
 					<img src="assets/service-platform-infrastructure/web.png"/>
 
 					<aside class="notes">
-						<p>Stateful &ndash; maintained using sticky sessions on the apache layer using cookies</p>
+						<p>Stateful &ndash; maintained using sticky sessions on the apache layer using cookies - why? shared state can be bad for performance</p>
+						<p>apache unwraps ssl</p>
 					</aside>
 				</section>
 				<section>
@@ -190,6 +203,7 @@
 
 					<aside class="notes">
 						<p>Stateless</p>
+						<p>unauth redirect on port 81, mac auth redirect on 82. Why? because sp only runs on port 8080 so apache adds value by rewriting the request so that sp can identify the type of redirec to perform</p>
 					</aside>
 				</section>
 				</section>
@@ -240,9 +254,15 @@
 						<li class="fragment">Max theoretical &ndash; 2400 requests per second</li>
 						<li class="fragment">Web pages &ndash; 750 requests per second</li>
 						<li class="fragment">Redirects &ndash; 500 requests per second</li>
-						<li class="fragment">Registrations &ndash; 50 registrations per second</li>
+					</ul>
+					<p class="fragment">Across the platform...</p>
+					<ul>
+						<li class="fragment">Landing Page &ndash; 500 requests per second</li>
+						<li class="fragment">Registrations &ndash; 50 registrations per minute</li>
+						<li class="fragment">Successful Payments &ndash; 5 payments per minute</li>
 					</ul>
 					<aside class="notes">
+						<p>Max theoretical tested in a lab situation (offnet landing page in production)</p>
 						<p>How well does it perform today? What are the minimum number of servers we can survive with at peak?</p>
 					</aside>
 				</section>
@@ -285,14 +305,30 @@
 				</section>
 
 				<section>
+				<section>
 					<h2>Troubleshooting</h2>
 					<blockquote>&ldquo;Oops! That one appears to have been lost in the Clouds.&rdquo;</blockquote>
 					<aside class="notes">
 						<p>We've all seen this message before</p>
-						<p>First check the logs! Stacktraces... Healthchecks... Metrics...</p>
+						<p>Get information about the problem</p>
+						<p>Check the logs, look for stack traces... Check Nagios... Metrics... Graphs...</p>
 					</aside>
 				</section>
 
+				<section>
+					<h2>Scenario</h2>
+					<ul>
+						<li>User cannot get online</li>
+						<li>User does not get redirected</li>
+						<li>International business complains that user cannot purchase a product</li>
+						<li>Product complains that captive doesn't work :)</p>
+					</ul>
+					<aside class="notes">
+						<p>Work through each scenario...</p>
+					</aside>
+				</section>
+
+				</section>
 
 				<section>
 					<h2>Questions?</h2>
